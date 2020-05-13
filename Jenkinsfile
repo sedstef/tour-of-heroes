@@ -17,14 +17,18 @@ node{
     }
     
     stage('Test'){
-        nodejs('Default') {
-            sh 'npm run ng test'
+        wrap([$class: 'Xvfb', debug: true]) {
+            nodejs('Default') {
+                sh 'npm run-script test-ci'
+            }
         }
     }
     
     stage('Functional Test'){
-        nodejs('Default') {
-            sh 'npm run ng e2e'
+        wrap([$class: 'Xvfb', debug: true]) {
+            nodejs('Default') {
+                sh 'npm run ng e2e'
+            }
         }
     }
 }
