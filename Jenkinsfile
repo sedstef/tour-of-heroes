@@ -6,13 +6,13 @@ node{
         checkout scm
 
         nodejs('Default') {
-            sh 'npm install ng'
+            sh 'npm install'
         }
     }
     
     stage('Build'){
         nodejs('Default') {
-            sh 'npm run ng build'
+            sh 'node_modules/.bin/ng build'
         }
     }
     
@@ -25,9 +25,10 @@ node{
     }
     
     stage('Functional Test'){
-        wrap([$class: 'Xvfb', debug: true]) {
+        //see https://www.browserstack.com/local-testing/binary-params
+        browserstack(credentialsId: 'bd869689-b150-47e2-a1de-8344509f756d') {
             nodejs('Default') {
-                sh 'npm run ng e2e'
+                sh 'node_modules/.bin/ng e2e --protractorConfig=e2e/browserstack_local.conf.js'
             }
         }
     }
