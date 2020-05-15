@@ -12,19 +12,57 @@ exports.config = {
 
   'seleniumAddress': 'http://hub-cloud.browserstack.com/wd/hub',
 
-  'capabilities': {
+  // 'browserstackUser': process.env.BROWSERSTACK_USERNAME,
+  // 'browserstackKey': process.env.BROWSERSTACK_ACCESS_KEY,
+
+  'commonCapabilities': {
+    'project': "Tour of Heroes",
+    'build': "localdev",
+    'name': "Tour of Heroes local",
+
     'browserstack.user': (process.env.BROWSERSTACK_USERNAME),
     'browserstack.key': (process.env.BROWSERSTACK_ACCESS_KEY),
     'browserstack.local': true,
-    'browserName': 'chrome',
     
-    'project': "Tour of Heroes",
-    'build': "localdev",
-    'name': "Tour of Heroes local"
+    'browserstack.debug': 'true',
   },
 
+  'multiCapabilities': [
+    {
+      'browserName': 'Chrome',
+      'browserVersion': "80"
+    },
+    {
+      'browserName': 'Chrome',
+      'browserVersion': "81"
+    },
+    // {
+    //   'browserName': 'Safari',
+    //   'browserVersion': "13"
+    // },
+    {
+      'browserName': 'Firefox',
+      'browserVersion': "74"
+    },
+    {
+      'browserName': 'Firefox',
+      'browserVersion': "75"
+    },
+    {
+      'browserName': 'Firefox',
+      'browserVersion': "76"
+    },
+    {
+      'browserName': 'Edge',
+      'browserVersion': "81"
+    },
+    // {
+    //   'browserName': 'IE'
+    // },
+  ],
+
   //directConnect: true,
-  baseUrl: 'http://localhost:4200/',
+  baseUrl: 'http://localhost:4502/',
 
   framework: 'jasmine',
   jasmineNodeOpts: {
@@ -46,11 +84,10 @@ exports.config = {
     return new Promise(function (resolve, reject) {
       exports.bs_local = new browserstack.Local();
       const bsOptions = {
-        'key': exports.config.capabilities['browserstack.key'],
-        //'key': (process.env.BROWSERSTACK_ACCESS_KEY),
+        'key': exports.config.commonCapabilities['browserstack.key'],
         hosts: [{
           name: 'localhost',
-          port: 4200,
+          port: 4502,
           //  sslFlag: 0
         }],
         'verbose': 'true'
@@ -71,3 +108,8 @@ exports.config = {
     });
   }
 };
+
+// Code to support common capabilities
+exports.config.multiCapabilities.forEach(function(caps){
+  for(var i in exports.config.commonCapabilities) caps[i] = caps[i] || exports.config.commonCapabilities[i];
+});

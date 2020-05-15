@@ -23,6 +23,10 @@
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+.browserstack_env
+
+# NetBeans
+**/nbproject/private/
 
 # misc
 /.sass-cache
@@ -32,8 +36,12 @@
 npm-debug.log
 yarn-error.log
 testem.log
+local.log
 /typings
 
 # System Files
 .DS_Store
 Thumbs.db
+
+/je2e
+

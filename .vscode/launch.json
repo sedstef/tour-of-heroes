@@ -17,6 +17,19 @@
             ]
         },
         {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Protractor e2e with BrowserStack-Local",
+            "program": "${workspaceFolder}/node_modules/.bin/protractor",
+            "stopOnEntry": false,
+            "sourceMaps": true,
+            "cwd": "${workspaceFolder}",
+            "args": [
+                "${workspaceFolder}/e2e/browserstack_local.conf.js"
+            ],
+            "envFile": "${workspaceFolder}/.browserstack_env",
+        },
+        {
             "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome against localhost",
