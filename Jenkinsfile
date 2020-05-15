@@ -1,5 +1,9 @@
 #!groovy
 
+properties([
+    buildDiscarder(logRotator(numToKeepStr: '10'))
+    ])
+
 node{
 
     stage('Prepare'){
