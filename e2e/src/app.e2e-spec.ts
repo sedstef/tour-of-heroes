@@ -9,6 +9,12 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to angular-tour-of-heroes!');
+    expect(trim(page.getParagraphText())).toEqual('Welcome to angular-tour-of-heroes!');
   });
 });
+
+function trim(toTrim) {
+  return toTrim.then(function(val) {
+      return val.trim();
+  });
+}

@@ -12,9 +12,6 @@ exports.config = {
 
   'seleniumAddress': 'http://hub-cloud.browserstack.com/wd/hub',
 
-  // 'browserstackUser': process.env.BROWSERSTACK_USERNAME,
-  // 'browserstackKey': process.env.BROWSERSTACK_ACCESS_KEY,
-
   'commonCapabilities': {
     'project': "Tour of Heroes",
     'build': "localdev",
@@ -23,7 +20,7 @@ exports.config = {
     'browserstack.user': (process.env.BROWSERSTACK_USERNAME),
     'browserstack.key': (process.env.BROWSERSTACK_ACCESS_KEY),
     'browserstack.local': true,
-    
+
     'browserstack.debug': 'true',
   },
 
@@ -36,10 +33,10 @@ exports.config = {
       'browserName': 'Chrome',
       'browserVersion': "81"
     },
-    // {
-    //   'browserName': 'Safari',
-    //   'browserVersion': "13"
-    // },
+    {
+      'browserName': 'Safari',
+      'browserVersion': "13"
+    },
     {
       'browserName': 'Firefox',
       'browserVersion': "74"
@@ -76,6 +73,8 @@ exports.config = {
       project: require('path').join(__dirname, './tsconfig.e2e.json')
     });
     jasmine.getEnv().addReporter(new SpecReporter({ spec: { displayStacktrace: true } }));
+
+    browser.resetUrl = 'about:blank';
   },
 
   // Code to start browserstack local before start of test
