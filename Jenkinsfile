@@ -28,6 +28,14 @@ node{
         }
     }
 
+    stage('Static Analysis'){
+        withSonarQubeEnv(credentialsId: '6a31ddf9-f37a-4d5b-9121-836b90abfe76') {
+            nodejs('Default') {
+                sh 'node sonar-analyse.js'
+            }
+        }
+    }
+    
     stage('Functional Test'){
         //see https://www.browserstack.com/local-testing/binary-params
         browserstack(credentialsId: 'bd869689-b150-47e2-a1de-8344509f756d') {
