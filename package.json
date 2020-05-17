@@ -21,7 +21,6 @@
     "@angular/platform-browser": "^6.1.0",
     "@angular/platform-browser-dynamic": "^6.1.0",
     "@angular/router": "^6.1.0",
-    "browserstack-local": "^1.4.5",
     "core-js": "^2.5.4",
     "rxjs": "~6.2.0",
     "zone.js": "~0.8.26"
@@ -45,6 +44,7 @@
     "karma-junit-reporter": "^2.0.1",
     "karma-sonarqube-unit-reporter": "0.0.21",
     "protractor": "~5.4.0",
+    "browserstack-local": "^1.4.5",
     "sonarqube-scanner": "^2.6.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
