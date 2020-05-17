@@ -20,7 +20,7 @@ module.exports = function (config) {
     //report in JUnit format for Jenkins
     junitReporter: {
       outputDir: require('path').join(__dirname, '../build/karma-reports'),
-      suite: 'Tour of Heroes',
+      suite: 'src/app',
       useBrowserName: true, // add browser name outputFile
       xmlVersion: null,//use junit format
       nameFormatter: function (browser, result) {
@@ -31,9 +31,10 @@ module.exports = function (config) {
       }
     },
     sonarQubeUnitReporter: {
-      sonarQubeVersion: 'LATEST',
       outputFile: '../build/ut_report.xml',
-      useBrowserName: false
+      suite: 'src/app',
+      testPath: 'test',
+      useBrowserName: true
     },
     coverageIstanbulReporter: {
       dir: require('path').join(__dirname, '../build/coverage'),
