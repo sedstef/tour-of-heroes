@@ -1,7 +1,7 @@
 #!groovy
 
 properties([
-    buildDiscarder(logRotator(numToKeepStr: '10'))
+        buildDiscarder(logRotator(numToKeepStr: '10'))
     ])
 
 node{
@@ -25,7 +25,7 @@ node{
     }
 
     stage('Static Analysis'){
-       sh 'npm run-script --silent -- ng lint --format=checkstyle angular-tour-of-heroes > build/checkstyle-result.xml'
+        sh 'npm run-script --silent -- ng lint --format=checkstyle angular-tour-of-heroes > build/checkstyle-result.xml'
         withSonarQubeEnv(credentialsId: '6a31ddf9-f37a-4d5b-9121-836b90abfe76') {
             sh 'node sonar-analyse.js'
         }
@@ -40,25 +40,25 @@ node{
 
     stage('Results'){
         recordIssues(tools: [
-            tsLint(pattern: 'build/checkstyle-result.xml'),
-            junitParser(pattern: 'build/karma-reports')
+                tsLint(pattern: 'build/checkstyle-result.xml'),
+                junitParser(pattern: 'build/karma-reports/*.xml')
             ],
             enableForFailure: true)
 
         timeout(time: 5, unit: 'MINUTES') {
-          try{
-              def qg = waitForQualityGate()
-              if (qg.status == 'ERROR') {
-                  error "Pipeline aborted due to quality gate failure: ${qg.status}"
-              }else if (qg.status == 'WARN') {
-                  //Pipeline Graph Publisher (Build on SNAPSHOT dependency) doesn't work on UNSTABLE builds
-                  currentBuild.result = 'UNSTABLE'
-              }
-          }catch(IllegalStateException ex){
-              //if build fails before staticAnalysis is ran, waitForQualityGate
-              //throws IllegalStateException and original exception is hidden...
-              println (ex.getMessage())
-          }
-      }
+            try{
+                def qg = waitForQualityGate()
+                if (qg.status == 'ERROR') {
+                    error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                }else if (qg.status == 'WARN') {
+                    //Pipeline Graph Publisher (Build on SNAPSHOT dependency) doesn't work on UNSTABLE builds
+                    currentBuild.result = 'UNSTABLE'
+                }
+            }catch(IllegalStateException ex){
+                //if build fails before staticAnalysis is ran, waitForQualityGate
+                //throws IllegalStateException and original exception is hidden...
+                println (ex.getMessage())
+            }
+        }
     }
 }
