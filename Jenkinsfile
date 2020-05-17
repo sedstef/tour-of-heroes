@@ -25,6 +25,7 @@ node{
     }
 
     stage('Static Analysis'){
+       sh 'npm run-script --silent -- ng lint --format=checkstyle angular-tour-of-heroes > checkstyle-result.xml'
         withSonarQubeEnv(credentialsId: '6a31ddf9-f37a-4d5b-9121-836b90abfe76') {
             sh 'node sonar-analyse.js'
         }
@@ -38,6 +39,8 @@ node{
     }
 
     stage('Results'){
+        recordIssues(tool: tsLint(pattern: 'checkstyle-result.xml'), enableForFailure: true)
+
         timeout(time: 5, unit: 'MINUTES') {
           try{
               def qg = waitForQualityGate()
