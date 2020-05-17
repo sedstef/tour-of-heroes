@@ -7,7 +7,7 @@ scanner(
     options: {
       "sonar.projectVersion": "1.1.0",
       "sonar.sources": "src",
-      //"sonar.tests": "tests",
+      "sonar.tests": "test",
       "sonar.typescript.lcov.reportPaths": "build/coverage/lcov.info",
       "sonar.testExecutionReportPaths": "build/ut_report.xml"
     },
