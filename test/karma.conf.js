@@ -33,7 +33,6 @@ module.exports = function (config) {
     sonarQubeUnitReporter: {
       outputFile: '../build/ut_report.xml',
       suite: 'src/app',
-      testPath: 'test',
       useBrowserName: true
     },
     coverageIstanbulReporter: {
