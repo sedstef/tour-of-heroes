@@ -39,6 +39,7 @@ node{
     }
 
     stage('Results'){
+        junit ('build/karma-reports/*.xml')
         recordIssues(tools: [
                 tsLint(pattern: 'build/checkstyle-result.xml'),
                 junitParser(pattern: 'build/karma-reports/*.xml')
