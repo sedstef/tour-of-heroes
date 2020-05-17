@@ -8,8 +8,8 @@ scanner(
       "sonar.projectVersion": "1.1.0",
       "sonar.sources": "src",
       //"sonar.tests": "tests",
-      "sonar.typescript.lcov.reportPaths": "coverage/lcov.info",
-      //"sonar.testExecutionReportPaths": "test-report.xml"
+      "sonar.typescript.lcov.reportPaths": "build/coverage/lcov.info",
+      "sonar.testExecutionReportPaths": "build/ut_report.xml"
     },
   },
   () => {

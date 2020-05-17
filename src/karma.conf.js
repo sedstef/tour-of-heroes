@@ -9,18 +9,38 @@ module.exports = function (config) {
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
       require('karma-jasmine-html-reporter'),
+      require('karma-junit-reporter'),
+      require('karma-sonarqube-unit-reporter'),
       require('karma-coverage-istanbul-reporter'),
       require('@angular-devkit/build-angular/plugins/karma')
     ],
     client: {
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
+    //report in JUnit format for Jenkins
+    junitReporter: {
+      outputDir: require('path').join(__dirname, '../build/karma-reports'),
+      suite: 'Tour of Heroes',
+      useBrowserName: true, // add browser name outputFile
+      xmlVersion: null,//use junit format
+      nameFormatter: function (browser, result) {
+        return result.fullName;
+      },
+      classNameFormatter: function (browser, result) {
+        return result.suite;
+      }
+    },
+    sonarQubeUnitReporter: {
+      sonarQubeVersion: 'LATEST',
+      outputFile: '../build/ut_report.xml',
+      useBrowserName: false
+    },
     coverageIstanbulReporter: {
-      dir: require('path').join(__dirname, '../coverage'),
+      dir: require('path').join(__dirname, '../build/coverage'),
       reports: ['html', 'lcovonly'],
       fixWebpackSourcePaths: true
     },
-    reporters: ['progress', 'kjhtml'],
+    reporters: ['progress', 'kjhtml', 'junit', 'sonarqubeUnit'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
